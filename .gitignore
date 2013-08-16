@@ -18,3 +18,9 @@ local.properties
 # Eclipse project files
 .classpath
 .project
+
+*.bin
+
+GoogleImageSearchAppTest/GoogleImageSearchAppTest/build/source/r/debug/tw/orangefaller/googleimagesearchapptest/R.java
+
+*.data

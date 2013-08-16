@@ -2,7 +2,7 @@
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
 1376671192000 211 4e1904afba59d31e5cd6133f6a4c360fa9a5913f /Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/values/dimens.xml
-1376671405000 507 6ad5491ee92b39be3d59696478f66191489fba8a /Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/layout/activity_img_search.xml
+1376672758000 1166 56c222e24a0b75add33fdb7ea25797dbd96f25c0 /Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/layout/activity_img_search.xml
 1376671192000 234 648e1152d70de1484193027b655062df0b14fe9f /Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/values/strings.xml
 1376671192000 324 aa1f5f1723de9aee2669dc44a26fbc0ce776d35f /Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/values-v11/styles.xml
 1376671192000 1164 ec5a1d1c782c2c1fc16332d9b3fc840881e2d4a0 /Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/drawable-hdpi/ic_launcher.png
