@@ -90,6 +90,11 @@
                     <!-- API 11 theme customizations can go here. -->
                 </style>
             </file>
+            <file
+                name="layout_thumbnailinfo"
+                path="/Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/layout/layout_thumbnailinfo.xml"
+                qualifiers=""
+                type="layout" />
         </source>
         <source path="/Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/build/res/rs/debug" />
     </dataSet>

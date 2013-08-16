@@ -24,14 +24,23 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+
+import tw.orangefaller.data.ThumbnailAdapter;
+import tw.orangefaller.data.ThumbnailInfomation;
 
 public class ImageSearchActivity extends Activity {
     private EditText etSearch;
     private GridView gridviewResult;
+    private ArrayList<ThumbnailInfomation> thumbnailInfomationArrayList=new ArrayList<ThumbnailInfomation>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +80,7 @@ public class ImageSearchActivity extends Activity {
 
     class SearchImageTask extends AsyncTask<String,Void,Void>{
         ProgressDialog searchProgressDialog;
+        boolean failResult=false;
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -106,32 +116,55 @@ public class ImageSearchActivity extends Activity {
                         JSONObject json = new JSONObject(br.readLine());
                         JSONObject result=json.getJSONObject("responseData");
                         JSONArray resultArray=result.getJSONArray("results");
-                        //Log.e("Joseph","Result1:" + result.toString());
-                        //Log.e("Joseph","Result2:"+result.getJSONArray("results").get(0).toString());
-                        for(int i=0;i<resultArray.length();i++){
-                            JSONObject js=(JSONObject)resultArray.get(i);
-                            Log.e("Joseph","Result2:"+js.toString());
+
+                        if(resultArray.length()>0){
+                            for(int i=0;i<resultArray.length();i++){
+                                JSONObject js=(JSONObject)resultArray.get(i);
+
+
+                                ThumbnailInfomation infomation=new ThumbnailInfomation(js.getInt("width"),js.getInt("height"),js.getString("tbUrl"));
+                                if(infomation.isValid()){
+                                    thumbnailInfomationArrayList.add(infomation);
+                                }
+
+                            }
+                            int idx=0;
+                            for(ThumbnailInfomation infomation : thumbnailInfomationArrayList){
+                                Log.e("Joseph","res:"+infomation.getTbUrl());
+                                loadPic(infomation.getTbUrl(),idx++);
+                            }
+
+
+
+                        }else{
+                            failResult=true;
                         }
 
+                    }else{
+                        failResult=true;
                     }
 
                 } catch (ClientProtocolException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                    failResult=true;
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                    failResult=true;
                 } catch (IllegalStateException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-
+                    failResult=true;
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
+                    failResult=true;
                 }
 
 
             }catch (Exception e){
                 e.printStackTrace();
+                failResult=true;
             }
             return null;
         }
@@ -139,6 +172,41 @@ public class ImageSearchActivity extends Activity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            if(searchProgressDialog!=null&&searchProgressDialog.isShowing()){
+                searchProgressDialog.dismiss();
+                gridviewResult.setAdapter(new ThumbnailAdapter(ImageSearchActivity.this,thumbnailInfomationArrayList));
+            }
+            if(failResult){
+
+            }else if(thumbnailInfomationArrayList.size()==0){
+
+            }
+
+        }
+
+        private void loadPic(String mUrl,int idx){
+
+            try {
+                URL url = new URL (mUrl);
+                InputStream input = url.openStream();
+                //The sdcard directory e.g. '/sdcard' can be used directly, or
+                //more safely abstracted with getExternalStorageDirectory()
+                File storagePath = getExternalFilesDir("cache");
+                OutputStream output = new FileOutputStream(new File(storagePath,idx+".bmp"));
+                try {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead = 0;
+                    while ((bytesRead = input.read(buffer, 0, buffer.length)) >= 0) {
+                        output.write(buffer, 0, bytesRead);
+                    }
+                } finally {
+                    output.close();
+                }
+                input.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
     }
 
