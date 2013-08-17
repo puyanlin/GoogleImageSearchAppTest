@@ -93,34 +93,53 @@ public class ImageSearchActivity extends Activity {
         @Override
         protected Void doInBackground(String... strings) {
             try {
+                //Space " " couldn't be placed in url,so we should replace them to "%20" instead.
                 String target=strings[0].replaceAll(" ","%20");
 
+                //Get a HttpClient
                 HttpClient hc = new DefaultHttpClient();
+
+                //combine search target with google image search api
+                //more information,check: https://developers.google.com/image-search/v1/jsondevguide
                 String url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="+target;
 
+                //check url string is valid
                 if (!url.matches("^((http[s]?):\\/)?\\/?([^:\\/\\s]+)((\\/\\w+)*\\/)([\\w\\-\\.]+[^#?\\s]+)(.*)?(#[\\w\\-]+)?$")) {
                     return null;
                 }
+
+                //Using 'get' method to execute url
                 HttpGet httpget = new HttpGet(url);
 
+                //init a HttpContext,just like app context
                 final HttpContext context = new BasicHttpContext();
+
+                //declare a HttpResponse
                 HttpResponse response;
                 try {
+                    //response point to httpClient execute result
                     response = hc.execute(httpget, context);
 
+                    //the response data means its entity.
                     HttpEntity entity = response.getEntity();
 
-                    if (entity != null) {
+                    if (entity != null) { //the entity is not null means there are search results.
+
+                        //get response string,it should be a json entity.
                         BufferedReader br= new BufferedReader(new InputStreamReader(entity.getContent()));
 
+                        //using result to generate a JSONObject
                         JSONObject json = new JSONObject(br.readLine());
+
+                        //the value of "responseData" contains search result
                         JSONObject result=json.getJSONObject("responseData");
+
+                        //the "results" array contains all we need search result
                         JSONArray resultArray=result.getJSONArray("results");
 
                         if(resultArray.length()>0){
                             for(int i=0;i<resultArray.length();i++){
                                 JSONObject js=(JSONObject)resultArray.get(i);
-
 
                                 ThumbnailInfomation infomation=new ThumbnailInfomation(js.getInt("width"),js.getInt("height"),js.getString("tbUrl"));
                                 if(infomation.isValid()){
@@ -129,8 +148,10 @@ public class ImageSearchActivity extends Activity {
 
                             }
                             int idx=0;
+
+                            //load thumbnails of all we would display results.
                             for(ThumbnailInfomation infomation : thumbnailInfomationArrayList){
-                                Log.e("Joseph","res:"+infomation.getTbUrl());
+
                                 loadPic(infomation.getTbUrl(),idx++);
                             }
 
@@ -187,10 +208,12 @@ public class ImageSearchActivity extends Activity {
         private void loadPic(String mUrl,int idx){
 
             try {
-                URL url = new URL (mUrl);
+                URL url = new URL(mUrl);
+
+                //just get the image using url.openStream()
                 InputStream input = url.openStream();
-                //The sdcard directory e.g. '/sdcard' can be used directly, or
-                //more safely abstracted with getExternalStorageDirectory()
+
+                //save pic with a really raw file name,ex:1.bmp,2.bmp....
                 File storagePath = getExternalFilesDir("cache");
                 OutputStream output = new FileOutputStream(new File(storagePath,idx+".bmp"));
                 try {
