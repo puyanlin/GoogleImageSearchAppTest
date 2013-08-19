@@ -6,13 +6,15 @@ package tw.orangefaller.data;
 public class ThumbnailInfomation {
     private int mWidth=0,mHeight=0;
     private String mTbUrl="";
-    public ThumbnailInfomation(int width,int height,String tbUrl){
+    private String mOringinalUrl;
+    public ThumbnailInfomation(int width,int height,String tbUrl,String url){
         mWidth=width;
         mHeight=height;
         mTbUrl=tbUrl;
+        mOringinalUrl=url;
     }
     public String getResolution(){
-        return mWidth+"x"+mHeight;
+        return mWidth+" x "+mHeight;
     }
     public int getWidth(){
         return mWidth;
@@ -22,6 +24,9 @@ public class ThumbnailInfomation {
     }
     public String getTbUrl(){
         return mTbUrl;
+    }
+    public String getUrl(){
+        return mOringinalUrl;
     }
     public boolean isValid(){
         return mWidth!=0&&mHeight!=0&&!mTbUrl.equalsIgnoreCase("");

@@ -50,6 +50,8 @@
                 </string>
                 <string name="hello_world" >Hello world!
                 </string>
+                <string name="title_activity_original_viewer" >OriginViewer
+                </string>
             </file>
             <file
                 path="/Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/values/styles.xml"
@@ -95,6 +97,16 @@
                 path="/Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/layout/layout_thumbnailinfo.xml"
                 qualifiers=""
                 type="layout" />
+            <file
+                name="activity_originalviewer"
+                path="/Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/layout/activity_originalviewer.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="original_viewer"
+                path="/Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/src/main/res/menu/original_viewer.xml"
+                qualifiers=""
+                type="menu" />
         </source>
         <source path="/Users/puyan/Desktop/GoogleImageSearchAppTest/GoogleImageSearchAppTest/GoogleImageSearchAppTest/build/res/rs/debug" />
     </dataSet>

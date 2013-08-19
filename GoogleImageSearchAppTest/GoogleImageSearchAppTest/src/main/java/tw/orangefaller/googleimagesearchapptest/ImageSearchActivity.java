@@ -1,12 +1,14 @@
 package tw.orangefaller.googleimagesearchapptest;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -141,7 +143,7 @@ public class ImageSearchActivity extends Activity {
                             for(int i=0;i<resultArray.length();i++){
                                 JSONObject js=(JSONObject)resultArray.get(i);
 
-                                ThumbnailInfomation infomation=new ThumbnailInfomation(js.getInt("width"),js.getInt("height"),js.getString("tbUrl"));
+                                ThumbnailInfomation infomation=new ThumbnailInfomation(js.getInt("width"),js.getInt("height"),js.getString("tbUrl"),js.getString("url"));
                                 if(infomation.isValid()){
                                     thumbnailInfomationArrayList.add(infomation);
                                 }
@@ -196,6 +198,15 @@ public class ImageSearchActivity extends Activity {
             if(searchProgressDialog!=null&&searchProgressDialog.isShowing()){
                 searchProgressDialog.dismiss();
                 gridviewResult.setAdapter(new ThumbnailAdapter(ImageSearchActivity.this,thumbnailInfomationArrayList));
+                gridviewResult.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Intent intent=new Intent(ImageSearchActivity.this,OriginalViewerActivity.class);
+                        ThumbnailInfomation thumbnailInfomation=thumbnailInfomationArrayList.get(i);
+                        intent.putExtra("url",thumbnailInfomation.getUrl());
+                        startActivity(intent);
+                    }
+                });
             }
             if(failResult){
 
