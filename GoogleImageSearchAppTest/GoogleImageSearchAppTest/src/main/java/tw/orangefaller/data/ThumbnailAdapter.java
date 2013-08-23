@@ -68,17 +68,11 @@ public class ThumbnailAdapter extends BaseAdapter {
                 Drawable drawable = new BitmapDrawable(mContext.getResources(),bm);
                 thumb.setImageDrawable(drawable);
             }
-//            Drawable drawable=drawableFromUrl(mDataSource.get(position).getTbUrl());
-//            if(drawable!=null)
-//                thumb.setImageDrawable(drawable);
-            //view.setLayoutParams(new GridView.LayoutParams(85, 85));
-            //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            //view.setPadding(8, 8, 8, 8);
+
         } else {
             view = (RelativeLayout)convertView;
         }
-//
-//        imageView.setImageResource(mThumbIds[position]);
+
         return view;
     }
 

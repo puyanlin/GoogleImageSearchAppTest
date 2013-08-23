@@ -20,7 +20,6 @@ public class OriginalViewerActivity extends Activity {
         tvUrl.setText(url);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
