@@ -1,5 +1,4 @@
 //modify for nothing
-//more code
 
 package tw.orangefaller.googleimagesearchapptest;
 
